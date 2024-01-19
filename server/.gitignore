@@ -1,0 +1,9 @@
+/package-lock.json
+/node_modules/
+/yarn-error.log
+/yarn.lock
+/.pnp.*
+/.yarn
+*.sqlite3
+/dist/
+*.env

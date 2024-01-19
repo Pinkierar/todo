@@ -1,0 +1,61 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "author": "Pinkierar",
+  "license": "MIT",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node --inspect=5858 -r ts-node/register ./src/index.ts",
+    "start:watch": "nodemon"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.2",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mariadb": "^3.2.3"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/compression": "^1.7.5",
+    "@types/cookie-parser": "^1.4.6",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/express-fileupload": "^1.4.4",
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/node": "^20.11.5",
+    "@types/validator": "^13.11.8",
+    "nodemon": "^3.0.3",
+    "sequelize": "^6.35.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "nodemonConfig": {
+    "watch": [
+      "src",
+      "types",
+      ".env",
+      "package.json",
+      "../global"
+    ]
+  },
+  "imports": {
+    "#controllers": "./src/controllers/index.ts",
+    "#errors": "./src/errors/index.ts",
+    "#entities/*": "./src/entities/*/index.ts",
+    "#includes/sequelize": "./src/includes/sequelize/index.ts",
+    "#includes/*": "./src/includes/*.ts",
+    "#middlewares": "./src/middlewares/index.ts",
+    "#route": "./src/routes/index.ts",
+    "#services": "./src/services/index.ts",
+    "#global": "./global.ts",
+    "#config": "./src/config.ts"
+  }
+}

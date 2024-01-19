@@ -1,0 +1,1 @@
+export type BaseData<T extends { id: number }> = Readonly<T>;
