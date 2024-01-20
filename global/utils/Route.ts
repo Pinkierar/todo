@@ -10,10 +10,10 @@ export class g_Route<
   A = undefined,
   Q extends ParsedQs | undefined = undefined,
 > {
-  public readonly _typeP: P = 0 as any;
-  public readonly _typeD: D = 0 as any;
-  public readonly _typeA: A = 0 as any;
-  public readonly _typeQ: Q = 0 as any;
+  public readonly _typeP!: P;
+  public readonly _typeD!: D;
+  public readonly _typeA!: A;
+  public readonly _typeQ!: Q;
 
   private readonly _httpMethod: HttpMethod;
   private readonly _path: string;

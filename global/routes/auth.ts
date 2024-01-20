@@ -1,4 +1,4 @@
-import {HttpMethod, JwtData, LoginArgs} from '../';
+import {HttpMethod, JwtData, LoginArgs, UserArgs, UserData} from '../';
 import {g_Route} from '../utils';
 
 export const g_AuthRoute = {
