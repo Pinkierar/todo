@@ -46,9 +46,9 @@ export const config = (() => {
   const db = (() => {
     const resetting = false;
     const name = 'todo';
-    const login = 'todo';
-    const password = 'K2z38lkMg8jkH2pK';
-    const host = false ? 'mysql://localhost:3306/' : 'mysql://localhost:3306/';
+    const login = 'postgres';
+    const password = 'admin';
+    const host = 'localhost';
 
     return {resetting, host, name, login, password} as const;
   })();

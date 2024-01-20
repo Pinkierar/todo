@@ -1,40 +1,24 @@
-// noinspection BadExpressionStatementJS,CommaExpressionJS
-
-require('dotenv').config();
-
-import {FileSystemService} from '#services';
-import express from 'express';
-import cors from 'cors';
 import {config} from '#config';
+import {BadCode} from '#global';
+import {logApiRoutes} from '#includes/ApiRoute';
+import {clear, line, logUrl} from '#includes/console';
 import {initializeModels} from '#includes/sequelize';
 import {unknownErrorMiddleware} from '#middlewares';
-import {clear, line, logUrl} from '#includes/console';
-import {logApiRoutes} from '#includes/ApiRoute';
-import {BadCode, DateTimeFormat} from '#global';
 import {ApiRouter} from '#route';
+import {FileSystemService} from '#services';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import express from 'express';
 import fs from 'fs';
 import path from 'path';
 
-(globalThis as any).whiteList = '';
+dotenv.config();
 
 const app = express();
 app.enable('strict routing');
 app.use(cors({
   credentials: true,
   origin: true,
-  // origin: config.app.isProduction
-  //   ? [config.server.url]
-  //   : (() => {
-  //     const nets = networkInterfaces();
-  //
-  //     const localIps = Object.values(nets).flatMap(info => info?.map(
-  //       net => !net.internal && net.family === 'IPv4' && net.address,
-  //     ).filter(ip => Boolean(ip)) as string[]);
-  //
-  //     localIps.push('localhost');
-  //
-  //     return localIps.map(ip => `http://${ip}:${config.ports.client}`)
-  //   })();
   methods: ['GET', 'PUT', 'POST', 'DELETE'],
   allowedHeaders: ['Response-Hash', 'Content-Type', 'Authorization'],
 }));

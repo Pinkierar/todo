@@ -1,15 +1,16 @@
 import {QueryTypes, Sequelize} from 'sequelize';
 import {User} from '#entities/User';
-import {Relation} from '#includes/sequelize/Relation';
 import {config} from '#config';
 
-export const sequelize = new Sequelize(config.db.host, {
-  dialect: 'mysql',
-  username: config.db.login,
-  password: config.db.password,
-  database: config.db.name,
-  logging: false,
-});
+export const sequelize = new Sequelize(
+  config.db.name,
+  config.db.login,
+  config.db.password,
+  {
+    host: config.db.host,
+    dialect: 'postgres',
+  },
+);
 
 const initModels = () => {
   User.initialize();

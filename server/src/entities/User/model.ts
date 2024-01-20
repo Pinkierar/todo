@@ -1,9 +1,18 @@
-import {UserArgs, UserArgsWithPassword, UserData} from '#global';
+import {Status} from '#entities/Status';
+import {Task} from '#entities/Task';
+import {UserArgs, UserData} from '#global';
 import {BaseModel} from '#includes/BaseModel';
 import {sequelize} from '#includes/sequelize';
-import {SetModelParameter} from '#includes/SetModelParameter';
-import bcrypt from 'bcrypt';
-import {CreationOptional, DataTypes, Op} from 'sequelize';
+import {
+  CreationOptional,
+  DataTypes, HasManyAddAssociationMixin,
+  HasManyAddAssociationsMixin, HasManyCountAssociationsMixin, HasManyCreateAssociationMixin,
+  HasManyGetAssociationsMixin, HasManyHasAssociationMixin,
+  HasManyHasAssociationsMixin, HasManyRemoveAssociationMixin,
+  HasManyRemoveAssociationsMixin,
+  HasManySetAssociationsMixin,
+  NonAttribute,
+} from 'sequelize';
 
 export class User extends BaseModel<User> {
   declare id: CreationOptional<UserData['id']>;
@@ -13,6 +22,29 @@ export class User extends BaseModel<User> {
   declare confirmed: CreationOptional<UserData['confirmed']>;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
+
+  declare Tasks?: NonAttribute<Task[]>;// region
+  declare addTasks: HasManyAddAssociationsMixin<Task, Task['id']>;
+  declare setTasks: HasManySetAssociationsMixin<Task, Task['id']>;
+  declare hasTasks: HasManyHasAssociationsMixin<Task, Task['id']>;
+  declare getTasks: HasManyGetAssociationsMixin<Task>;
+  declare removeTasks: HasManyRemoveAssociationsMixin<Task, Task['id']>;
+  declare countTasks: HasManyCountAssociationsMixin;
+  declare createTask: HasManyCreateAssociationMixin<Task, 'id'>;
+  declare addTask: HasManyAddAssociationMixin<Task, Task['id']>;
+  declare hasTask: HasManyHasAssociationMixin<Task, Task['id']>;
+  declare removeTask: HasManyRemoveAssociationMixin<Task, Task['id']>;// endregion
+  declare Statuses?: NonAttribute<Status[]>;// region
+  declare addStatuses: HasManyAddAssociationsMixin<Status, Status['id']>;
+  declare setStatuses: HasManySetAssociationsMixin<Status, Status['id']>;
+  declare hasStatuses: HasManyHasAssociationsMixin<Status, Status['id']>;
+  declare getStatuses: HasManyGetAssociationsMixin<Status>;
+  declare removeStatuses: HasManyRemoveAssociationsMixin<Status, Status['id']>;
+  declare countStatuses: HasManyCountAssociationsMixin;
+  declare createStatus: HasManyCreateAssociationMixin<Status, 'id'>;
+  declare addStatus: HasManyAddAssociationMixin<Status, Status['id']>;
+  declare hasStatus: HasManyHasAssociationMixin<Status, Status['id']>;
+  declare removeStatus: HasManyRemoveAssociationMixin<Status, Status['id']>;// endregion
 
   public static override readonly ru = 'Пользователь';
 
@@ -48,34 +80,5 @@ export class User extends BaseModel<User> {
     }, {
       sequelize,
     });
-  }
-
-  public static async fill() {
-    const user: UserArgsWithPassword = {
-      name: 'Pinkierar',
-      email: 'admin@pinkierar.ru',
-      password: await bcrypt.hash('qwerty123', 3),
-      confirmed: true,
-    };
-
-    const where: SetModelParameter<User>['where'] = {
-      [Op.or]: {
-        email: user.email,
-      },
-    };
-    const defaults: SetModelParameter<User>['defaults'] = {
-      name: user.name,
-      email: user.email,
-      password: user.password,
-      confirmed: user.confirmed,
-    };
-
-    await User.set({where, defaults});
-  }
-
-  private static async set(parameter: SetModelParameter<User>) {
-    const [model, isNew] = await User.findOrCreate(parameter);
-
-    !isNew && await model.update(parameter.defaults);
   }
 }

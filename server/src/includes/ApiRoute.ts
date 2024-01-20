@@ -39,17 +39,13 @@ export type ControllerFunc<
 
 export interface Controller {
   getAll: ControllerFunc<{}, ListData>;
-  getMany: ControllerFunc<{}, ListData, undefined, { ids: string[] }>;
   get: ControllerFunc<any>;
 }
 
 export interface ControllerFull extends Controller {
   create: ControllerFunc<{}, SureObject, any>;
-  createMany: ControllerFunc<{}, ListData, any[]>;
   edit: ControllerFunc<any, SureObject, any>;
-  editMany: ControllerFunc<{}, ListData, any[]>;
   delete: ControllerFunc<any, {}>;
-  deleteMany: ControllerFunc<{}, {}, number[]>;
 }
 
 export const requestHandler = <
