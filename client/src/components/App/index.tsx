@@ -1,7 +1,8 @@
-import {Preloader} from '#components/organisms';
+import {Page, Preloader} from '#components/organisms';
 import {loader} from '#store';
 import {observer} from 'mobx-react-lite';
 import {useEffect} from 'react';
+import {BrowserRouter} from 'react-router-dom';
 
 export const App = observer(() => {
   useEffect(() => {
@@ -9,11 +10,9 @@ export const App = observer(() => {
   }, []);
 
   return (
-    <>
-      <div>
-        App
-      </div>
+    <BrowserRouter>
+      <Page/>
       <Preloader/>
-    </>
+    </BrowserRouter>
   );
 });
