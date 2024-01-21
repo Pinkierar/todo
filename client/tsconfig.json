@@ -19,33 +19,18 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+
+    /* Aliases */
     "paths": {
-      "#components/*": [
-        "src/components/*"
-      ],
-      "#app": [
-        "src/app/index.ts"
-      ],
-      "#graphics": [
-        "src/graphics/index.ts"
-      ],
-      "#repositories": [
-        "src/repositories/index.ts"
-      ],
-      "#hooks": [
-        "src/hooks/index.ts"
-      ],
-      "#utils/*": [
-        "src/utils/*"
-      ],
-      "#styles/*": [
-        "src/styles/*"
-      ],
-      "#store": [
-        "src/store/index.ts"
-      ]
+      "#components/*": ["./src/components/*"],
+      "#hooks": ["./src/hooks/index.ts"],
+      "#includes/*": ["./src/includes/*"],
+      "#store": ["./src/store/index.ts"],
+      "#config": ["./src/config/index.ts"],
+      "#global": ["../global/index.ts"]
     }
   },
-  "include": ["src"],
+  "include": ["./src", "../global"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

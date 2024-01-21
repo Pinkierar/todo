@@ -1,0 +1,1 @@
+export const isTruthy = <T>(x: T | Falsy): x is T => Boolean(x);
