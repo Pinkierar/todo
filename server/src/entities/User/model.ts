@@ -34,17 +34,6 @@ export class User extends BaseModel<User> {
   declare addTask: HasManyAddAssociationMixin<Task, Task['id']>;
   declare hasTask: HasManyHasAssociationMixin<Task, Task['id']>;
   declare removeTask: HasManyRemoveAssociationMixin<Task, Task['id']>;// endregion
-  declare Statuses?: NonAttribute<Status[]>;// region
-  declare addStatuses: HasManyAddAssociationsMixin<Status, Status['id']>;
-  declare setStatuses: HasManySetAssociationsMixin<Status, Status['id']>;
-  declare hasStatuses: HasManyHasAssociationsMixin<Status, Status['id']>;
-  declare getStatuses: HasManyGetAssociationsMixin<Status>;
-  declare removeStatuses: HasManyRemoveAssociationsMixin<Status, Status['id']>;
-  declare countStatuses: HasManyCountAssociationsMixin;
-  declare createStatus: HasManyCreateAssociationMixin<Status, 'id'>;
-  declare addStatus: HasManyAddAssociationMixin<Status, Status['id']>;
-  declare hasStatus: HasManyHasAssociationMixin<Status, Status['id']>;
-  declare removeStatus: HasManyRemoveAssociationMixin<Status, Status['id']>;// endregion
 
   public static override readonly ru = 'Пользователь';
 

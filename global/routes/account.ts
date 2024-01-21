@@ -4,7 +4,7 @@ import {g_Route} from '../utils';
 export const g_AccountRoute = {
   signUp: new g_Route<null, UserData, UserArgs>(
     HttpMethod.post,
-    'account',
+    'account/register',
     'Зарегистрироваться',
   ),
   changePassword: new g_Route<null, {}, ChangePasswordArgs>(

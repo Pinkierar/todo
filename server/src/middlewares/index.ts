@@ -6,7 +6,6 @@ import {ParamsDictionary} from 'express-serve-static-core';
 import {ParsedQs} from 'qs';
 
 export * from './auth';
-export * from './cacheUpdater';
 export * from './error';
 export * from './init';
 export * from './Jwt';

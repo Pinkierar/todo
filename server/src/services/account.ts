@@ -1,8 +1,9 @@
 import bcrypt from 'bcrypt';
 import {ChangePasswordArgs, LoginArgs, TokensData} from '#global';
 import {TokenService} from '#services';
-import {User, UserJwtTransfer, UserTransfer} from '#entities/User';
+import {User, UserTransfer} from '#entities/User';
 import {RequestError} from '#errors';
+import {UserJwtTransfer} from '#transfers';
 
 class Service {
   public login(args: LoginArgs): Promise<TokensData>

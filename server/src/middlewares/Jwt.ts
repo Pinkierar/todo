@@ -1,8 +1,9 @@
 import {FileSystemService, TokenService} from '#services';
 import {config} from '#config';
 import {DateTimeFormat, Tokens, UserData, UserJwtData} from '#global';
+import {UserJwtTransfer} from '#transfers';
 import {Request} from 'express';
-import {User, UserJwtTransfer} from '#entities/User';
+import {User} from '#entities/User';
 import {Middleware} from './index';
 import {RequestError} from '#errors';
 import path from 'path';

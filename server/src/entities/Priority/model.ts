@@ -6,10 +6,16 @@ import {sequelize} from '#includes/sequelize';
 import {SetModelParameter} from '#includes/SetModelParameter';
 import {
   CreationOptional,
-  DataTypes, HasManyAddAssociationMixin,
-  HasManyAddAssociationsMixin, HasManyCountAssociationsMixin, HasManyCreateAssociationMixin,
-  HasManyGetAssociationsMixin, HasManyHasAssociationMixin,
-  HasManyHasAssociationsMixin, HasManyRemoveAssociationMixin, HasManyRemoveAssociationsMixin,
+  DataTypes,
+  HasManyAddAssociationMixin,
+  HasManyAddAssociationsMixin,
+  HasManyCountAssociationsMixin,
+  HasManyCreateAssociationMixin,
+  HasManyGetAssociationsMixin,
+  HasManyHasAssociationMixin,
+  HasManyHasAssociationsMixin,
+  HasManyRemoveAssociationMixin,
+  HasManyRemoveAssociationsMixin,
   HasManySetAssociationsMixin,
   NonAttribute,
   Op,
@@ -57,17 +63,22 @@ export class Priority extends BaseModel<Priority> {
   }
 
   public static async fill() {
-    type SetPriorityParameter = SetModelParameter<Priority>
+    type SetPriorityParameter = SetModelParameter<Priority>;
 
     await Async.forEach(
       (Object.keys(priorities) as unknown as PriorityId[]),
       async key => {
+        const where: SetPriorityParameter['where'] = {
+          [Op.or]: {
+            id: priorities[key].id,
+            name: priorities[key].name,
+          },
+        };
         const defaults: SetPriorityParameter['defaults'] = {
           id: priorities[key].id,
           name: priorities[key].name,
           color: priorities[key].color,
         };
-        const where: SetPriorityParameter['where'] = {[Op.or]: defaults};
 
         await Priority.set({where, defaults});
       },

@@ -1,8 +1,9 @@
+import {SureObject} from '#global';
 import * as ev from 'express-validator';
 
 export type Validators = Validator | Validators[];
 
-export type ValidatorType<EditionArgs extends { id: number }> = {
+export type ValidatorType<EditionArgs extends SureObject> = {
   [key in keyof Required<EditionArgs>]: (key: Validator) => Validator | Validators | Validators[]
 };
 

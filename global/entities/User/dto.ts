@@ -15,8 +15,3 @@ export type UserArgsWithPassword = Readonly<
 export type UserArgs = Readonly<
   Pick<UserArgsWithPassword, 'name' | 'email' | 'password'>
 >;
-
-export type UserEditionArgs = Readonly<
-  Partial<UserArgs>
-  & Pick<UserData, 'id'>
->;

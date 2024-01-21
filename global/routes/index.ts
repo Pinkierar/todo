@@ -3,12 +3,12 @@ import {g_StatusesRoute} from '../entities/Status/routes';
 import {g_TasksRoute} from '../entities/Task/routes';
 import {g_UsersRoute} from '../entities/User/routes';
 import type {g_Route} from '../utils';
+import {g_AccountRoute} from './account';
 import {g_AuthRoute} from './auth';
-import {g_RootRoute} from './root';
 
 export const g_ApiRoute = {
+  ...g_AccountRoute,
   ...g_AuthRoute,
-  ...g_RootRoute,
   ...g_PrioritiesRoute,
   ...g_UsersRoute,
   ...g_StatusesRoute,

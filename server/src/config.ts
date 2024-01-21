@@ -77,9 +77,12 @@ export const config = (() => {
 
     // Роуты значит, что при запуске сервера
     // выведутся все доступные роуты с их описанием
-    const routes = false;
+    const routes = true;
 
-    return {isBriefly, onlyPaths, routes} as const;
+    // База данных значит, что выводятся SQL запросы
+    const db = false;
+
+    return {isBriefly, onlyPaths, routes, db} as const;
   })();
 
   return {app, server, jwt, db, io, logs, global: g_config} as const;

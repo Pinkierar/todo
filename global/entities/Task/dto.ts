@@ -1,17 +1,14 @@
-import type {BaseData, PriorityId} from '../../';
+import {BaseData, PriorityId, StatusId} from '../../';
 
 export type TaskData = BaseData<{
   id: number,
   name: string,
   description: string,
   order: number,
-  PriorityId?: PriorityId,
+  PriorityId: PriorityId,
+  StatusId: StatusId,
 }>;
 
 export type TaskArgs =
   Pick<TaskData, 'name'>
   & Partial<Pick<TaskData, 'description' | 'order' | 'PriorityId'>>;
-
-export type TaskEditionArgs =
-  Partial<TaskArgs>
-  & Pick<TaskData, 'id'>;

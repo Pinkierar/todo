@@ -29,8 +29,8 @@ export class Transfer<
   }
 
   public get(id: M['id']): Promise<Dto>
-  public get(model: M): Promise<Dto>
   public get(models: M[]): Promise<Dto[]>
+  public get(model: M): Promise<Dto>
   public get(ids: M['id'][]): Promise<Dto[]>
   public get(targets: (M | M['id'])[]): Promise<Dto[]>
   public async get(

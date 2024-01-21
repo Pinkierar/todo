@@ -13,6 +13,7 @@
       "#middlewares": ["middlewares"],
       "#route": ["routes"],
       "#services": ["services"],
+      "#transfers": ["transfers"],
       "#config": ["config"]
     },
     "rootDirs": ["./src", "../global"],

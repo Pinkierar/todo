@@ -1,13 +1,17 @@
 import {Task} from '#entities/Task';
 import {User} from '#entities/User';
-import {StatusData} from '#global';
+import {PriorityId, StatusData, statuses} from '#global';
+import {Async} from '#includes/async';
 import {BaseModel} from '#includes/BaseModel';
 import {sequelize} from '#includes/sequelize';
+import {SetModelParameter} from '#includes/SetModelParameter';
 import {
   BelongsToCreateAssociationMixin,
-  BelongsToGetAssociationMixin, BelongsToSetAssociationMixin,
+  BelongsToGetAssociationMixin,
+  BelongsToSetAssociationMixin,
   CreationOptional,
-  DataTypes, ForeignKey,
+  DataTypes,
+  ForeignKey,
   HasManyAddAssociationMixin,
   HasManyAddAssociationsMixin,
   HasManyCountAssociationsMixin,
@@ -19,6 +23,7 @@ import {
   HasManyRemoveAssociationsMixin,
   HasManySetAssociationsMixin,
   NonAttribute,
+  Op,
 } from 'sequelize';
 
 export class Status extends BaseModel<Status> {
@@ -26,11 +31,6 @@ export class Status extends BaseModel<Status> {
   declare name: StatusData['name'];
   declare color: StatusData['color'];
   declare order: StatusData['order'];
-  declare UserId: ForeignKey<User['id']>;// region
-  declare User?: NonAttribute<User>;
-  declare createUser: BelongsToCreateAssociationMixin<User>;
-  declare setUser: BelongsToSetAssociationMixin<User, User['id']>;
-  declare getUser: BelongsToGetAssociationMixin<User>;// endregion
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 
@@ -69,15 +69,42 @@ export class Status extends BaseModel<Status> {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
       },
-      UserId: {
-        type: DataTypes.INTEGER.UNSIGNED,
-        allowNull: false,
-        references: {model: User},
-      },
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
     }, {
       sequelize,
     });
+  }
+
+  public static async fill() {
+    type SetStatusParameter = SetModelParameter<Status>;
+
+    await Async.forEach(
+      (Object.keys(statuses) as unknown as PriorityId[]),
+      async key => {
+        const where: SetStatusParameter['where'] = {
+          [Op.or]: {
+            id: statuses[key].id,
+            name: statuses[key].name,
+          },
+        };
+        const defaults: SetStatusParameter['defaults'] = {
+          id: statuses[key].id,
+          name: statuses[key].name,
+          color: statuses[key].color,
+          order: statuses[key].order,
+        };
+
+        await Status.set({where, defaults});
+      },
+    );
+  }
+
+  // private:
+
+  private static async set(parameter: SetModelParameter<Status>) {
+    const [model, isNew] = await Status.findOrCreate(parameter);
+
+    !isNew && await model.update(parameter.defaults);
   }
 }
